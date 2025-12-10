@@ -44,11 +44,11 @@ class TypingDelayer {
   _init() {
     var inst = this;
     inst.elHtml.addEventListener("keyup", () => {
-      inst._when_types(inst);
+      inst._whenTypes(inst);
     });
   }
 
-  _when_types(inst) {
+  _whenTypes(inst) {
     // every time the specified html element is being typed in,
     // clear the timeout of the last timeout, which means,
     // do not run the code that was in the last setTimeout function
@@ -70,14 +70,3 @@ class TypingDelayer {
     inst._timeout = newTimeout;
   }
 }
-
-
-    function callback(value, moreInfo) {
-        console.log(value);
-    }
-
-    const td = new TypingDelayer({
-        elId: "myInput",
-        onTypingStopped: callback,
-        delayMs: 2000
-    });
