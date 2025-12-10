@@ -23,12 +23,22 @@ class TypingDelayer {
     inst.delayMs = delayMs;
     inst._timeout = null;
 
-    window.addEventListener("load", () => {
-      // when the page has loaded or is already loaded,
-      // run the core typing delay mechanism
+    // start the core typing delay mechanism
+    function doThis() {
       inst.elHtml = document.getElementById(elId);
       inst._init();
-    });
+    }
+
+    // if the document was loaded
+    if (document.readyState == "complete") {
+      doThis();
+    }
+    // before the document is loaded
+    else {
+      window.addEventListener("load", () => {
+        doThis();
+      });
+    }
   }
 
   _init() {
@@ -60,3 +70,14 @@ class TypingDelayer {
     inst._timeout = newTimeout;
   }
 }
+
+
+    function callback(value, moreInfo) {
+        console.log(value);
+    }
+
+    const td = new TypingDelayer({
+        elId: "myInput",
+        onTypingStopped: callback,
+        delayMs: 2000
+    });
